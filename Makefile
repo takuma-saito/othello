@@ -3,7 +3,7 @@ CC = gcc
 OBJS = othello.o computer.o
 CFLAGS = -g -Wall
 PROG = othello
-DYM = -DDEBUG
+# DYM = -DDEBUG
 
 # サフィックスルール
 .SUFFIXES: .c .o

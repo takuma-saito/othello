@@ -297,28 +297,28 @@ int min_max_pos(cmp_t *cmp, int depth, int alpha, int beta) {
 int end_pos[5];
 
 /* 読み切りモード */
-int solove(cmp_t *cmp, int depth) {
-  int i;
-  set_avilable_pos(cmp);
-  /* 最終局面まで駒が埋まった場合の評価値を計算する */
-  if (depth == 0) {
-    return cmp->eval;
-  }
-  int max = -9999;
-  for (i = 0; i < cmp->avilable; i++) {
-    int pos = cmp->is_pos[i];
-    cmp_t current = *cmp;
-    cmp_t *next = next_turn(cmp, pos);
-    int eval = -search_end(next, depth - 1);
-    *next = current;
-    if (eval > max) {
-      max = eval;
-      cmp->pos = pos;
-      printf("\rcounter = %d", ++counter);
-    }
-  }
-  return max;
-}
+/* int solove(cmp_t *cmp, int depth) { */
+/*   int i; */
+/*   set_avilable_pos(cmp); */
+/*   /\* 最終局面まで駒が埋まった場合の評価値を計算する *\/ */
+/*   if (depth == 0) { */
+/*     return cmp->eval; */
+/*   } */
+/*   int max = -9999; */
+/*   for (i = 0; i < cmp->avilable; i++) { */
+/*     int pos = cmp->is_pos[i]; */
+/*     cmp_t current = *cmp; */
+/*     cmp_t *next = next_turn(cmp, pos); */
+/*     int eval = 0 // -search_end(next, depth - 1); */
+/*     *next = current; */
+/*     if (eval > max) { */
+/*       max = eval; */
+/*       cmp->pos = pos; */
+/*       printf("\rcounter = %d", ++counter); */
+/*     } */
+/*   } */
+/*   return max; */
+/* } */
 
 /* ポジションをチェックする */
 void error_check(cmp_t* cmp) {
@@ -358,17 +358,17 @@ int turn_cmp(state_t *state, int level) {
 
   /* 14手以下の場合は読み切りモード */  
   int depth = (64 - curr_result.number);
-  printf("curr_result.number = %d\n", curr_result.number);
-  if (depth <= 10) {
-    /* 読み切りモードに変更 */
-    mode = STONE;
-    solove(&cmp, depth);
-    printf("\npos: %d\n", cmp.pos);
-  }
-  else {
+  /* printf("curr_result.number = %d\n", curr_result.number); */
+  /* if (depth <= 10) { */
+  /*   /\* 読み切りモードに変更 *\/ */
+  /*   mode = STONE; */
+  /*   solove(&cmp, depth); */
+  /*   printf("\npos: %d\n", cmp.pos); */
+  /* } */
+  /* else { */
     /* level 分先読みしてから石を置く */
     min_max_pos(&cmp, level, alpha, beta);
-  }  
+  /* }   */
   
   error_check(&cmp);
   return cmp.pos;
